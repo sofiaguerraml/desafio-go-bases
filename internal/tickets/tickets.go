@@ -2,6 +2,7 @@ package tickets
 
 import (
 	"encoding/csv"
+	"errors"
 	"fmt"
 	"os"
 	"time"
@@ -61,6 +62,9 @@ func GetTotalTickets(destination string) (int, error) {
 			count++
 		}
 	}
+	if count == 0 {
+		return 0, errors.New("Error: No se encuentran tickets a este destino")
+	}
 	return count, nil
 }
 
@@ -116,7 +120,10 @@ func GetPassengers(times string) (int, error) {
 				count++
 			}
 		}
+	default:
+		return 0, errors.New("Error: Se ingreso un turno incorrecto")
 	}
+
 	return count, nil
 }
 
@@ -125,6 +132,9 @@ func AverageDestination(destination string, total int) (float64, error) {
 	totalToday, err := GetTotalTickets(destination)
 	if err != nil {
 		return 0, err
+	}
+	if total == 0 {
+		return 0, errors.New("Error: el total de pasajeros es 0, no se puede realizar el promedio")
 	}
 	var resultado float64 = float64(totalToday) / float64(total)
 	return resultado, nil

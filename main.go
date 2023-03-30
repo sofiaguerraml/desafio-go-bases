@@ -46,9 +46,10 @@ func main() {
 	fmt.Println("Pasajeros que vuelan en la noche:", total)
 
 	var total2 float64
-	total2, err2 := tickets.AverageDestination("Brazil", 50)
+	total2, err2 := tickets.AverageDestination("Brazil", 60)
 	if err2 != nil {
-		fmt.Println("Error: ", err)
+		fmt.Println("Error: ", err2)
+		return
 	}
 	fmt.Println("Promedio de pasajeros:", total2)
 
